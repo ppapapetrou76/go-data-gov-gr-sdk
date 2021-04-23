@@ -1,0 +1,71 @@
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0
+  # Excluding configuration per-path, per-linter, per-text and per-source
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - gocritic
+        - gocyclo
+        - errcheck
+        - dupl
+        - gosec
+        - scopelint
+        - funlen
+        - maligned
+        - golint
+        - paralleltest
+        - testpackage
+        - goerr113
+
+linters:
+  enable-all: true
+  disable:
+    - lll
+    - gochecknoglobals
+    - gochecknoinits
+    - typecheck
+    - errcheck
+    - godox
+    - gomnd
+    - wsl
+    # should be enabled shortly
+    - funlen
+    - dupl
+    - nlreturn
+    - exhaustivestruct
+    - cyclop
+    - gomoddirectives
+
+linters-settings:
+  govet:
+    check-shadowing: false
+
+  gofmt:
+    simplify: true
+
+  golint:
+    min-confidence: 0
+
+  gocyclo:
+    # minimal code complexity to report, 30 by default (we should lower it to around 15-17)
+    min-complexity: 25
+
+  maligned:
+    # print struct with more effective memory layout or not, false by default
+    suggest-new: true
+
+  misspell:
+    locale: neutral
+
+  goimports:
+    local-prefixes: github.com/ppapapetrou76/go-data-gov-gr-sdk
+
+  gocritic:
+    enabled-tags:
+      - performance
+      - style
+      - experimental
+
+output:
+  format: tab
