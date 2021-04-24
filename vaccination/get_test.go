@@ -3,7 +3,9 @@ package vaccination
 import (
 	"errors"
 	"fmt"
+	"io/ioutil"
 	"testing"
+	"testing/iotest"
 	"time"
 
 	"github.com/ppapapetrou76/go-testing/assert"
@@ -119,10 +121,22 @@ func TestGet(t *testing.T) {
 					StatusCode:   401,
 					Path:         "mdg_emvolio",
 					Query:        fmt.Sprintf("date_to=%s", time.Now().Format("2006-01-02")),
-					ResponseBody: `{"details":"λανθασμένο token"}`,
+					ResponseBody: api.NewMockBody(`{"details":"λανθασμένο token"}`),
 				})),
 			)),
 			expectedErr: errors.New("get vaccination data: {\"details\":\"λανθασμένο token\"}"),
+		},
+		{
+			name: "should fail if the API returns an unexpected response and body cannot be read",
+			params: NewDefaultGetParams(api.NewClient(api.MockAPIToken,
+				api.SetHTTPClient(api.NewMockHTTPClient(api.MockRequest{
+					StatusCode:   401,
+					Path:         "mdg_emvolio",
+					Query:        fmt.Sprintf("date_to=%s", time.Now().Format("2006-01-02")),
+					ResponseBody: ioutil.NopCloser(iotest.ErrReader(errors.New("cannot read response data"))),
+				})),
+			)),
+			expectedErr: errors.New("get vaccination data: cannot read response data"),
 		},
 		{
 			name: "should return the expected data",
@@ -130,7 +144,7 @@ func TestGet(t *testing.T) {
 				api.SetHTTPClient(api.NewMockHTTPClient(api.MockRequest{
 					Path:         "mdg_emvolio",
 					Query:        fmt.Sprintf("date_to=%s", time.Now().Format("2006-01-02")),
-					ResponseBody: sampleData,
+					ResponseBody: api.NewMockBody(sampleData),
 				})),
 			)),
 			expected: expectedList(),
@@ -143,7 +157,7 @@ func TestGet(t *testing.T) {
 					Query: fmt.Sprintf("date_from=%s&date_to=%s",
 						time.Now().Add(-7*time.Hour*24).Format("2006-01-02"),
 						time.Now().Format("2006-01-02")),
-					ResponseBody: sampleData,
+					ResponseBody: api.NewMockBody(sampleData),
 				})),
 			), SetDateFrom(time.Now().Add(-7*time.Hour*24))),
 			expected: expectedList(),

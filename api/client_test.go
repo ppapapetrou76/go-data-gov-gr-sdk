@@ -84,7 +84,7 @@ func TestClient_DoGet(t *testing.T) {
 			token: MockAPIToken,
 			client: NewClient(MockAPIToken, SetHTTPClient(NewMockHTTPClient(
 				MockRequest{
-					ResponseBody: "{}",
+					ResponseBody: NewMockBody("{}"),
 				},
 			))),
 			expectedResponseBody: "{}",
@@ -95,7 +95,7 @@ func TestClient_DoGet(t *testing.T) {
 			client: NewClient(MockAPIToken, SetHTTPClient(NewMockHTTPClient(
 				MockRequest{
 					Query:        fmt.Sprintf("some_date=%s", time.Now().Format("2006-01-02")),
-					ResponseBody: "{}",
+					ResponseBody: NewMockBody("{}"),
 				},
 			))),
 			expectedResponseBody: "{}",
