@@ -9,9 +9,60 @@
 A Go based SDK to access the public data provided by the Greek Government and are available at https://www.data.gov.gr/
 
 ## Quick Start
-TBD
+
+### Get your API Token
+Submit the form found [here](https://www.data.gov.gr/token/)
+You will receive by email an API token. You will use it to access the data in the example below
+
+### Add the SDK as a dependency to your project 
+
+`go get github.com/ppapapetrou76/go-data-gov-gr-sdk`
+
+or if you are using go modules ( recommended ) 
+
+`go mod download github.com/ppapapetrou76/go-data-gov-gr-sdk` 
+
+### Implement a client to read some data
+```go
+package main
+
+import (
+	"fmt"
+	"os"
+	"time"
+
+	"github.com/ppapapetrou76/go-data-gov-gr-sdk/api"
+	"github.com/ppapapetrou76/go-data-gov-gr-sdk/vaccination"
+)
+
+func main() {
+	// Fetches the vaccination data for the last 6 days for all areas
+	client := api.NewClient("<YOUR_API_TOKEN_HERE>")
+	data, err := vaccination.Get(
+		vaccination.NewDefaultGetParams(client,
+			vaccination.SetDateFrom(time.Now().Add(-time.Hour*24*5)),
+		),
+	)
+	if err != nil {
+		panic(err)
+	}
+	// Filter by a specific region
+	for _, d := range data.FilterByArea("ΘΕΣΣΑΛΟΝΙΚΗΣ") {
+		fmt.Fprintf(os.Stdout, "Area:%s, Vaccinations on %v:%d\n", d.Area, d.ReferenceDate, d.DayTotal)
+	}
+}
+```
+
 ## Implemented endpoints
   * COVID-19 vaccination statistics ( https://www.data.gov.gr/datasets/mdg_emvolio ) 
 
 ## To be implemented soon
-  TBD
+- [ ] Business and Economy (Small businesses, industry, imports, exports and trade)
+- [ ] Crime and Justice (Courts, police, prison, offenders, borders and immigration)
+- [ ] Education (Students, training, universities, quaifications)
+- [ ] Environment (Weather, flooding, rivers, air quality, geology and agriculture) 
+- [ ] Health (Includes smoking, drugs, alcohol, medicine performance and hospitals)
+- [ ] Society (Employment, benefits, household finances, poverty and population)
+- [ ] Technology (Internet, technology and digital adoption)
+- [ ] Telecommunication (Telecommunications data, television and radio) 
+- [ ] Transport (Airports, roads, freight, electric vehicles, parking, buses and footpaths)
