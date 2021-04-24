@@ -6,7 +6,7 @@
 [![codecov](https://codecov.io/gh/ppapapetrou76/go-data-gov-gr-sdk/branch/master/graph/badge.svg)](https://codecov.io/gh/ppapapetrou76/go-data-gov-gr-sdk)
 
 # go-data-gov-gr-sdk
-A Go based SDK to access the public data available in https://www.data.gov.gr/
+A Go based SDK to access the public data provided by the Greek Government and are available at https://www.data.gov.gr/
 
 ## Quick Start
 TBD
