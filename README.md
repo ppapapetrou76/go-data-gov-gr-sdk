@@ -3,7 +3,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/ppapapetrou76/go-data-gov-gr-sdk)](https://goreportcard.com/report/github.com/ppapapetrou76/go-data-gov-gr-sdk)
 [![GoDoc](https://godoc.org/github.com/ppapapetrou76/go-data-gov-gr-sdk?status.svg)](https://pkg.go.dev/github.com/ppapapetrou76/go-data-gov-gr-sdk)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ppapapetrou76_go-data-gov-gr-sdk&metric=alert_status)](https://sonarcloud.io/dashboard?id=ppapapetrou76_go-data-gov-gr-sdk)
-[![codecov](https://codecov.io/gh/ppapapetrou76/go-data-gov-gr-sdk/branch/master/graph/badge.svg)](https://codecov.io/gh/ppapapetrou76/go-data-gov-gr-sdk)
+[![codecov](https://codecov.io/gh/ppapapetrou76/go-data-gov-gr-sdk/branch/main/graph/badge.svg?token=CX3I6LDF3J)](https://codecov.io/gh/ppapapetrou76/go-data-gov-gr-sdk)
 
 # go-data-gov-gr-sdk
 A Go based SDK to access the public data provided by the Greek Government and are available at https://www.data.gov.gr/
