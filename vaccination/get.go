@@ -2,7 +2,10 @@ package vaccination
 
 import (
 	"context"
+	"errors"
 	"fmt"
+	"io"
+	"net/http"
 	"time"
 
 	"github.com/ppapapetrou76/go-data-gov-gr-sdk/api"
@@ -13,6 +16,8 @@ const (
 	path   = "mdg_emvolio"
 	prefix = "get vaccination data"
 )
+
+var errPrefixed = errors.New(prefix)
 
 // GetParams is used by the Get function.
 type GetParams struct {
@@ -65,6 +70,14 @@ func Get(params *GetParams) (List, error) {
 	resp, err := params.client.DoGet(ctx, path, queryParams...)
 	if err != nil {
 		return nil, fmt.Errorf("%s: %w", prefix, err)
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		b, err := io.ReadAll(resp.Body)
+		if err != nil {
+			return nil, fmt.Errorf("%s: %w", prefix, err)
+		}
+		return nil, fmt.Errorf("%w: %s", errPrefixed, string(b))
 	}
 
 	var results List
