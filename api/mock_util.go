@@ -22,6 +22,7 @@ var defaultHeaders = http.Header{
 // MockRequest is used to mock an API call.
 type MockRequest struct {
 	Path, Query, ResponseBody string
+	StatusCode                int
 	Err                       error
 }
 
@@ -30,13 +31,16 @@ type MockRequest struct {
 func NewMockHTTPClient(requests ...MockRequest) *MockHTTPClient {
 	mockedClient := &MockHTTPClient{}
 	for _, r := range requests {
+		if r.StatusCode == 0 {
+			r.StatusCode = http.StatusOK
+		}
 		path := fmt.Sprintf("%s/%s", defaultURL, r.Path)
 		if r.Query != "" {
 			path = fmt.Sprintf("%s?%s", path, r.Query)
 		}
 		mockedClient.On("Do", mock.MatchedBy(
 			httpRequestMatcher(http.MethodGet, path, defaultHeaders)),
-		).Return(&http.Response{Body: io.NopCloser(bytes.NewBuffer([]byte(r.ResponseBody)))}, r.Err)
+		).Return(&http.Response{StatusCode: r.StatusCode, Body: io.NopCloser(bytes.NewBuffer([]byte(r.ResponseBody)))}, r.Err)
 	}
 	return mockedClient
 }

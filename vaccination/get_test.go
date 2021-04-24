@@ -113,6 +113,18 @@ func TestGet(t *testing.T) {
 			expectedErr: errors.New("get vaccination data: failed to un-marshal response unexpected end of JSON input"),
 		},
 		{
+			name: "should fail if the API returns an unexpected response",
+			params: NewDefaultGetParams(api.NewClient(api.MockAPIToken,
+				api.SetHTTPClient(api.NewMockHTTPClient(api.MockRequest{
+					StatusCode:   401,
+					Path:         "mdg_emvolio",
+					Query:        fmt.Sprintf("date_to=%s", time.Now().Format("2006-01-02")),
+					ResponseBody: `{"details":"λανθασμένο token"}`,
+				})),
+			)),
+			expectedErr: errors.New("get vaccination data: {\"details\":\"λανθασμένο token\"}"),
+		},
+		{
 			name: "should return the expected data",
 			params: NewDefaultGetParams(api.NewClient(api.MockAPIToken,
 				api.SetHTTPClient(api.NewMockHTTPClient(api.MockRequest{
