@@ -32,7 +32,7 @@ import (
 	"time"
 
 	"github.com/ppapapetrou76/go-data-gov-gr-sdk/api"
-	"github.com/ppapapetrou76/go-data-gov-gr-sdk/pkg/traffic"
+	"github.com/ppapapetrou76/go-data-gov-gr-sdk/pkg/vaccination"
 )
 
 func main() {
