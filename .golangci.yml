@@ -6,36 +6,21 @@ issues:
     - path: _test\.go
       linters:
         - gocritic
-        - gocyclo
-        - errcheck
-        - dupl
-        - gosec
-        - scopelint
-        - funlen
-        - maligned
-        - golint
         - paralleltest
         - testpackage
         - goerr113
+        - scopelint
+        - funlen
 
 linters:
   enable-all: true
   disable:
     - lll
-    - gochecknoglobals
-    - gochecknoinits
-    - typecheck
-    - errcheck
-    - godox
-    - gomnd
     - wsl
-    # should be enabled shortly
-    - funlen
-    - dupl
-    - nlreturn
     - exhaustivestruct
-    - cyclop
     - gomoddirectives
+    - goerr113
+    # should be enabled shortly
 
 linters-settings:
   govet:

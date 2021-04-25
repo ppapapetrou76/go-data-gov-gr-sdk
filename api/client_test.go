@@ -5,13 +5,13 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"testing"
+	"testing/iotest"
 	"time"
 
 	"github.com/ppapapetrou76/go-testing/assert"
-
-	"github.com/ppapapetrou76/go-data-gov-gr-sdk/internal/httputil"
 )
 
 func TestNewClient(t *testing.T) {
@@ -59,7 +59,7 @@ func TestClient_DoGet(t *testing.T) {
 		name, token          string
 		client               *Client
 		path                 string
-		queryParams          []httputil.QueryParam
+		queryParams          []QueryParam
 		expectedResponseBody string
 		expectedErr          error
 	}{
@@ -99,8 +99,8 @@ func TestClient_DoGet(t *testing.T) {
 				},
 			))),
 			expectedResponseBody: "{}",
-			queryParams: []httputil.QueryParam{
-				httputil.NewDateQueryParam(time.Now()).AsQueryParam("some_date"),
+			queryParams: []QueryParam{
+				NewDateQueryParam(time.Now()).AsQueryParam("some_date"),
 				{},
 			},
 		},
@@ -115,4 +115,130 @@ func TestClient_DoGet(t *testing.T) {
 			assert.That(t, string(actualBody)).IsEqualTo(tt.expectedResponseBody)
 		}
 	}
+}
+
+func TestClient_ProcessGetRequest(t *testing.T) {
+	type sampleData struct {
+		Data string `json:"data"`
+	}
+
+	tests := []struct {
+		name        string
+		params      *GetParams
+		client      *Client
+		expectedErr error
+		expected    sampleData
+	}{
+		{
+			name: "should fail if API returns an error",
+			client: NewClient(MockAPIToken,
+				SetHTTPClient(NewMockHTTPClient(MockRequest{
+					Path:  "some-path",
+					Query: fmt.Sprintf("date_to=%s", time.Now().Format("2006-01-02")),
+					Err:   errors.New("cannot fetch data"),
+				})),
+			),
+			params:      NewDefaultGetParams(),
+			expectedErr: errors.New("some-name: cannot fetch data"),
+		},
+		{
+			name: "should fail if the API response cannot be un-marshaled",
+			client: NewClient(MockAPIToken,
+				SetHTTPClient(NewMockHTTPClient(MockRequest{
+					Path:  "some-path",
+					Query: fmt.Sprintf("date_to=%s", time.Now().Format("2006-01-02")),
+				})),
+			),
+			params:      NewDefaultGetParams(),
+			expectedErr: errors.New("some-name: failed to un-marshal response unexpected end of JSON input"),
+		},
+		{
+			name: "should fail if the API returns an unexpected response",
+			client: NewClient(MockAPIToken,
+				SetHTTPClient(NewMockHTTPClient(MockRequest{
+					StatusCode:   401,
+					Path:         "some-path",
+					Query:        fmt.Sprintf("date_to=%s", time.Now().Format("2006-01-02")),
+					ResponseBody: NewMockBody(`{"details":"λανθασμένο token"}`),
+				})),
+			),
+			params:      NewDefaultGetParams(),
+			expectedErr: errors.New("some-name: {\"details\":\"λανθασμένο token\"}"),
+		},
+		{
+			name: "should fail if the API returns an unexpected response and body cannot be read",
+			client: NewClient(MockAPIToken,
+				SetHTTPClient(NewMockHTTPClient(MockRequest{
+					StatusCode:   401,
+					Path:         "some-path",
+					Query:        fmt.Sprintf("date_to=%s", time.Now().Format("2006-01-02")),
+					ResponseBody: ioutil.NopCloser(iotest.ErrReader(errors.New("cannot read response data"))),
+				})),
+			),
+			params:      NewDefaultGetParams(),
+			expectedErr: errors.New("some-name: cannot read response data"),
+		},
+		{
+			name: "should fail if the API returns the expected response and body cannot be read",
+			client: NewClient(MockAPIToken,
+				SetHTTPClient(NewMockHTTPClient(MockRequest{
+					StatusCode:   200,
+					Path:         "some-path",
+					Query:        fmt.Sprintf("date_to=%s", time.Now().Format("2006-01-02")),
+					ResponseBody: ioutil.NopCloser(iotest.ErrReader(errors.New("cannot read response data"))),
+				})),
+			),
+			params:      NewDefaultGetParams(),
+			expectedErr: errors.New("some-name: failed to parse response cannot read response data"),
+		},
+		{
+			name: "should return the expected data",
+			client: NewClient(MockAPIToken,
+				SetHTTPClient(NewMockHTTPClient(MockRequest{
+					Path:         "some-path",
+					Query:        fmt.Sprintf("date_to=%s", time.Now().Format("2006-01-02")),
+					ResponseBody: NewMockBody(`{"data":"value"}`),
+				})),
+			),
+			params: NewDefaultGetParams(),
+			expected: sampleData{
+				Data: "value",
+			},
+		},
+		{
+			name: "should return the expected with query params",
+			client: NewClient(MockAPIToken,
+				SetHTTPClient(NewMockHTTPClient(MockRequest{
+					Path: "some-path",
+					Query: fmt.Sprintf("date_from=%s&date_to=%s",
+						time.Now().Add(-7*time.Hour*24).Format("2006-01-02"),
+						time.Now().Format("2006-01-02")),
+					ResponseBody: NewMockBody(`{"data":"value"}`),
+				})),
+			),
+			params: NewDefaultGetParams(SetDateFrom(time.Now().Add(-7 * time.Hour * 24))),
+			expected: sampleData{
+				Data: "value",
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var actual sampleData
+			err := tt.client.ProcessGetRequest(tt.params, sampleEndPoint{}, &actual)
+			assert.ThatError(t, err).IsSameAs(tt.expectedErr)
+			assert.That(t, actual).IsEqualTo(tt.expected)
+		})
+	}
+}
+
+type sampleEndPoint struct{}
+
+func (v sampleEndPoint) GetPath() string {
+	return "some-path"
+}
+
+func (v sampleEndPoint) GetName() string {
+	return "some-name"
 }
