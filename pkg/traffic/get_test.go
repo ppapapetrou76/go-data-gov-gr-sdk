@@ -2,13 +2,13 @@ package traffic
 
 import (
 	"errors"
-	"fmt"
 	"testing"
 	"time"
 
 	"github.com/ppapapetrou76/go-testing/assert"
 
 	"github.com/ppapapetrou76/go-data-gov-gr-sdk/api"
+	"github.com/ppapapetrou76/go-data-gov-gr-sdk/internal"
 )
 
 const sampleData = `[
@@ -60,26 +60,14 @@ func TestGet(t *testing.T) {
 		expectedErr error
 	}{
 		{
-			name: "should fail if API returns an error",
-			client: api.NewClient(api.MockAPIToken,
-				api.SetHTTPClient(api.NewMockHTTPClient(api.MockRequest{
-					Path:  "road_traffic_attica",
-					Query: fmt.Sprintf("date_to=%s", time.Now().Format("2006-01-02")),
-					Err:   errors.New("cannot fetch data"),
-				})),
-			),
+			name:        "should fail if API returns an error",
+			client:      internal.NewCommonMockClientError("road_traffic_attica", "cannot fetch data"),
 			params:      api.NewDefaultGetParams(),
 			expectedErr: errors.New("get traffic data: cannot fetch data"),
 		},
 		{
-			name: "should succeed when API call succeeds",
-			client: api.NewClient(api.MockAPIToken,
-				api.SetHTTPClient(api.NewMockHTTPClient(api.MockRequest{
-					Path:         "road_traffic_attica",
-					Query:        fmt.Sprintf("date_to=%s", time.Now().Format("2006-01-02")),
-					ResponseBody: api.NewMockBody(sampleData),
-				})),
-			),
+			name:     "should succeed when API call succeeds",
+			client:   internal.NewCommonMockClientSuccess("road_traffic_attica", sampleData),
 			params:   api.NewDefaultGetParams(),
 			expected: expectedList(),
 		},
