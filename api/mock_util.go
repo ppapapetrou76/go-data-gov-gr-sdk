@@ -13,10 +13,12 @@ import (
 // MockAPIToken holds the value of a fake API token.
 const MockAPIToken = "mock-token"
 
-var defaultHeaders = http.Header{
-	"Content-Type":  {defaultContentType},
-	"Accept":        {defaultContentType},
-	"Authorization": {fmt.Sprintf("Token %s", MockAPIToken)},
+func defaultHeaders() http.Header {
+	return http.Header{
+		"Content-Type":  {defaultContentType},
+		"Accept":        {defaultContentType},
+		"Authorization": {fmt.Sprintf("Token %s", MockAPIToken)},
+	}
 }
 
 // MockRequest is used to mock an API call.
@@ -49,9 +51,10 @@ func NewMockHTTPClient(requests ...MockRequest) *MockHTTPClient {
 			path = fmt.Sprintf("%s?%s", path, r.Query)
 		}
 		mockedClient.On("Do", mock.MatchedBy(
-			httpRequestMatcher(http.MethodGet, path, defaultHeaders)),
+			httpRequestMatcher(http.MethodGet, path, defaultHeaders())),
 		).Return(&http.Response{StatusCode: r.StatusCode, Body: r.ResponseBody}, r.Err)
 	}
+
 	return mockedClient
 }
 

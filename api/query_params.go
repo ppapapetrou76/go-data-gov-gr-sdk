@@ -1,4 +1,4 @@
-package httputil
+package api
 
 import "time"
 
@@ -37,6 +37,7 @@ func (p DateQueryValue) AsQueryParam(parameter string) QueryParam {
 	if p.value.Nanosecond() == 0 {
 		return QueryParam{}
 	}
+
 	return QueryParam{
 		name:  parameter,
 		value: p.value.Format(dateFormat),
