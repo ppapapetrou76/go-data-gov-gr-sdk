@@ -65,3 +65,12 @@ func main() {
 - [ ] Technology (Internet, technology and digital adoption)
 - [ ] Telecommunication (Telecommunications data, television and radio) 
 - [ ] Transport (Airports, roads, freight, electric vehicles, parking, buses and footpaths)
+
+
+## data.gov.gr clients / SDK in other languages
+
+- [x] Python (https://github.com/ilias-ant/pydatagovgr)[https://github.com/ilias-ant/pydatagovgr]
+- [ ] Java
+- [ ] Javascript
+- [ ] C++
+- [ ] C#
