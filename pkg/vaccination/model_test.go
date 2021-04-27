@@ -20,6 +20,12 @@ func TestList_FilterByArea(t *testing.T) {
 			filter:   "ΘΕΣΣΑΛΟΝΙΚΗΣ",
 		},
 		{
+			name:     "should return the given list if the area name argument is empty",
+			initial:  List{{Area: "ΑΤΤΙΚΗΣ"}, {Area: "ΒΟΙΩΤΙΑΣ"}},
+			expected: List{{Area: "ΑΤΤΙΚΗΣ"}, {Area: "ΒΟΙΩΤΙΑΣ"}},
+			filter:   "",
+		},
+		{
 			name:     "should return a list with the items that match the given filter",
 			initial:  List{{Area: "ΑΤΤΙΚΗΣ"}, {Area: "ΒΟΙΩΤΙΑΣ"}},
 			expected: List{{Area: "ΑΤΤΙΚΗΣ"}},
