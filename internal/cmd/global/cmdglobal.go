@@ -8,8 +8,8 @@ import (
 	"github.com/ppapapetrou76/go-data-gov-gr-sdk/pkg/util/times"
 )
 
-// Flags returns the global flags used for all commands/subcommands.
-func Flags() []cli.Flag {
+// CommonFlags returns the global flags used for all commands/subcommands.
+func CommonFlags() []cli.Flag {
 	return []cli.Flag{
 		&cli.StringFlag{
 			Name:     "auth-token",
@@ -19,9 +19,15 @@ func Flags() []cli.Flag {
 		},
 		&cli.StringFlag{
 			Name:        "output",
-			Usage:       "Output format [json|yaml]",
+			Usage:       "Output format [json|yaml|text]",
 			DefaultText: "json",
 		},
+	}
+}
+
+// DateRangeFlags returns the commonly used date range flags.
+func DateRangeFlags() []cli.Flag {
+	return []cli.Flag{
 		&cli.TimestampFlag{
 			Name:        "date-from",
 			Usage:       "Used to fetch data after a given date",
@@ -35,6 +41,22 @@ func Flags() []cli.Flag {
 			Layout:      "2006-01-02",
 			Value:       cli.NewTimestamp(time.Now()),
 			DefaultText: "today",
+		},
+	}
+}
+
+// YearRangeFlags returns the commonly used year range flags.
+func YearRangeFlags() []cli.Flag {
+	return []cli.Flag{
+		&cli.IntFlag{
+			Name:  "year-from",
+			Usage: "Used to fetch data after a given year",
+		},
+		&cli.IntFlag{
+			Name:        "year-to",
+			Usage:       "Used to fetch data before a given year",
+			Value:       time.Now().Year(),
+			DefaultText: "current year",
 		},
 	}
 }
