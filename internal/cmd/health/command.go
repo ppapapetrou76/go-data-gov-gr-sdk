@@ -10,6 +10,7 @@ func Command() *cli.Command {
 		Subcommands: []*cli.Command{
 			vaccinationCmd(),
 			foodInspectionCmd(),
+			pharmacistCmd(),
 		},
 	}
 }
