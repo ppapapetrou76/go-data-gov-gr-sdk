@@ -8,8 +8,8 @@ type Data struct {
 	Year     int    `json:"year"`
 	Quarter  string `json:"quarter"`
 	Active   int    `json:"active"`
-	Entrants int   `json:"entrants"`
-	Exits    int   `json:"exits"`
+	Entrants int    `json:"entrants"`
+	Exits    int    `json:"exits"`
 }
 
 // FilterByYearRange filters a food inspection List based on the year range provided and returns a new list that
