@@ -2,18 +2,17 @@ package main
 
 import (
 	"fmt"
+	vaccination2 "github.com/ppapapetrou76/go-data-gov-gr-sdk/pkg/health/vaccination"
 	"os"
 	"time"
 
 	"github.com/ppapapetrou76/go-data-gov-gr-sdk/api"
-
-	"github.com/ppapapetrou76/go-data-gov-gr-sdk/pkg/vaccination"
 )
 
 func main() {
 	// Fetches the vaccination data for the last 6 days for all areas
 	client := api.NewClient("<YOUR_API_TOKEN_HERE>")
-	data, err := vaccination.Get(client,
+	data, err := vaccination2.Get(client,
 		api.NewDefaultGetParams(api.SetDateFrom(time.Now().Add(-time.Hour*24*5))),
 	)
 	if err != nil {

@@ -9,7 +9,7 @@ import (
 	"github.com/ppapapetrou76/go-data-gov-gr-sdk/api"
 	cmdglobal "github.com/ppapapetrou76/go-data-gov-gr-sdk/internal/cmd/global"
 	"github.com/ppapapetrou76/go-data-gov-gr-sdk/internal/formatter"
-	"github.com/ppapapetrou76/go-data-gov-gr-sdk/pkg/foodinspection"
+	"github.com/ppapapetrou76/go-data-gov-gr-sdk/pkg/health/foodinspection"
 )
 
 func foodInspectionCmd() *cli.Command {
