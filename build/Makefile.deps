@@ -1,4 +1,4 @@
-## Installs all the required binaries for the makefile targets.
+#### Installs project dependencies.
 
 OS:=$(shell uname -s | tr '[:upper:]' '[:lower:]')
 ARCH:=$(shell $(PWD)/scripts/uname_arch.sh)
@@ -11,7 +11,12 @@ VERSION_GOJUNITREPORT:=v0.9.1
 VERSION_SWAGGER:=v0.25.0
 VERSION_MOCKERY:=v2.4.0
 
-## Install project dependencies
+## Installs go modules.
+mods:
+	@ go mod download
+	@ go mod tidy
+
+## Installs all the required binaries for the makefile targets.
 deps: $(GOBIN)/gobin $(GOBIN)/golint $(GOBIN)/golangci-lint $(GOBIN)/go-junit-report ${GOBIN}/mockery
 
 $(GOBIN):
