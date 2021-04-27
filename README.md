@@ -69,7 +69,7 @@ func main() {
 
 ## data.gov.gr clients / SDK in other languages
 
-- [x] Python (https://github.com/ilias-ant/pydatagovgr)[https://github.com/ilias-ant/pydatagovgr]
+- [x] Python [https://github.com/ilias-ant/pydatagovgr](https://github.com/ilias-ant/pydatagovgr)
 - [ ] Java
 - [ ] Javascript
 - [ ] C++
