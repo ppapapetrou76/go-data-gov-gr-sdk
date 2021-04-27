@@ -1,0 +1,11 @@
+#### Build targets
+
+## Compiles ggd-cli placing it in bin folder
+build: mods deps
+	@ echo "-> Building $(BINARY) in bin/$(BINARY)..."
+	@ if [[ -f bin/$(BINARY) ]]; then rm -f bin/$(BINARY); fi
+	@ CGO_ENABLED=0 go build -o bin/$(BINARY)
+
+## Cleans project by removing the contents of bin folder
+clean:
+	@ rm -rf bin
