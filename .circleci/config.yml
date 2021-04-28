@@ -44,7 +44,7 @@ jobs:
           path: /tmp/test-results
       - codecov/upload:
           file: coverage.out
-      - sonarcloud/scan:
+      - sonarcloud/scan
 
 workflows:
   version: 2
