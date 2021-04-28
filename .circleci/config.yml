@@ -50,5 +50,4 @@ workflows:
   version: 2
   build-workflow:
     jobs:
-      - build:
-          context: SonarCloud
+      - build
