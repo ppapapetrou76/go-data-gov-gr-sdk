@@ -8,6 +8,9 @@ import (
 	"github.com/ppapapetrou76/go-data-gov-gr-sdk/api"
 )
 
+// AuthTokenRequiredMsg is the message returned by the CLI when the auth-token flag is not set.
+const AuthTokenRequiredMsg = `Required flag "auth-token" not set`
+
 // NewCommonMockClientError returns a mock client that handles a single request that fails.
 func NewCommonMockClientError(path, errText string) *api.Client {
 	return api.NewClient(api.MockAPIToken,

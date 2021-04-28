@@ -7,6 +7,7 @@ import (
 	"github.com/urfave/cli/v2"
 
 	"github.com/ppapapetrou76/go-data-gov-gr-sdk/api"
+	"github.com/ppapapetrou76/go-data-gov-gr-sdk/internal"
 	cmdglobal "github.com/ppapapetrou76/go-data-gov-gr-sdk/internal/cmd/global"
 	"github.com/ppapapetrou76/go-data-gov-gr-sdk/internal/formatter"
 	pharmacist "github.com/ppapapetrou76/go-data-gov-gr-sdk/pkg/health/pharmacists"
@@ -21,7 +22,9 @@ func pharmacistCmd() *cli.Command {
 		Usage: "Shows pharmacists statistics",
 		Flags: flags,
 		Action: func(context *cli.Context) error {
-			client := api.NewClient(context.String("auth-token"))
+			client := api.NewClient(context.String("auth-token"),
+				api.SetHTTPClient(internal.Get().HTTPClient),
+			)
 			data, err := pharmacist.Get(client, api.NewDefaultGetParams())
 			if err != nil {
 				return fmt.Errorf("pharmacists statistics:%w", err)

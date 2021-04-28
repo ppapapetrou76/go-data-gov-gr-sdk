@@ -10,8 +10,10 @@ import (
 )
 
 const (
+	// DefaultTimeout is the default API request timeout.
+	DefaultTimeout = time.Minute
+
 	defaultURL         = `https://data.gov.gr/api/v1/query`
-	defaultTimeout     = time.Second * 30
 	defaultContentType = "application/json"
 )
 
@@ -31,10 +33,10 @@ type Client struct {
 func NewClient(authToken string, opts ...Opts) *Client {
 	client := &Client{
 		authToken: authToken,
-		timeout:   defaultTimeout,
+		timeout:   DefaultTimeout,
 		baseURL:   defaultURL,
 		httpClient: &http.Client{
-			Timeout: defaultTimeout,
+			Timeout: DefaultTimeout,
 		},
 	}
 	for _, o := range opts {
