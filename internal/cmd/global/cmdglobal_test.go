@@ -1,11 +1,13 @@
 package cmdglobal
 
 import (
-	"github.com/ppapapetrou76/go-data-gov-gr-sdk/pkg/util/times"
-	"github.com/ppapapetrou76/go-testing/assert"
-	"github.com/urfave/cli/v2"
 	"testing"
 	"time"
+
+	"github.com/ppapapetrou76/go-testing/assert"
+	"github.com/urfave/cli/v2"
+
+	"github.com/ppapapetrou76/go-data-gov-gr-sdk/pkg/util/times"
 )
 
 func TestCommonFlags(t *testing.T) {
