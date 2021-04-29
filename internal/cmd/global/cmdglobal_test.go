@@ -1,16 +1,18 @@
 package cmdglobal
 
 import (
+	"testing"
 	"time"
 
+	"github.com/ppapapetrou76/go-testing/assert"
 	"github.com/urfave/cli/v2"
 
 	"github.com/ppapapetrou76/go-data-gov-gr-sdk/pkg/util/times"
 )
 
-// CommonFlags returns the global flags used for all commands/subcommands.
-func CommonFlags() []cli.Flag {
-	return []cli.Flag{
+func TestCommonFlags(t *testing.T) {
+	actualFlags := CommonFlags()
+	expectedFlags := []cli.Flag{
 		&cli.StringFlag{
 			Name:     "auth-token",
 			Usage:    "Used for API authentication",
@@ -23,14 +25,34 @@ func CommonFlags() []cli.Flag {
 			DefaultText: "json",
 		},
 	}
+
+	assert.That(t, actualFlags).IsEqualTo(expectedFlags)
 }
 
-// DateRangeFlags returns the commonly used date range flags.
-func DateRangeFlags() []cli.Flag {
+func TestYearRangeFlags(t *testing.T) {
+	actualFlags := YearRangeFlags()
+	expectedFlags := []cli.Flag{
+		&cli.IntFlag{
+			Name:  "year-from",
+			Usage: "Used to fetch data after a given year",
+		},
+		&cli.IntFlag{
+			Name:        "year-to",
+			Usage:       "Used to fetch data before a given year",
+			Value:       time.Now().Year(),
+			DefaultText: "current year",
+		},
+	}
+
+	assert.That(t, actualFlags).IsEqualTo(expectedFlags)
+}
+
+func TestDateRangeFlags(t *testing.T) {
+	actualFlags := DateRangeFlags()
 	now := time.Now()
 	roundedNow := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, now.Location())
 
-	return []cli.Flag{
+	expectedFlags := []cli.Flag{
 		&cli.TimestampFlag{
 			Name:        "date-from",
 			Usage:       "Used to fetch data after a given date",
@@ -46,20 +68,6 @@ func DateRangeFlags() []cli.Flag {
 			DefaultText: "today",
 		},
 	}
-}
 
-// YearRangeFlags returns the commonly used year range flags.
-func YearRangeFlags() []cli.Flag {
-	return []cli.Flag{
-		&cli.IntFlag{
-			Name:  "year-from",
-			Usage: "Used to fetch data after a given year",
-		},
-		&cli.IntFlag{
-			Name:        "year-to",
-			Usage:       "Used to fetch data before a given year",
-			Value:       time.Now().Year(),
-			DefaultText: "current year",
-		},
-	}
+	assert.That(t, actualFlags).IsEqualTo(expectedFlags)
 }

@@ -1,30 +1,17 @@
 package main
 
 import (
-	"log"
-	"net/http"
-	"os"
+	"testing"
 
+	"github.com/ppapapetrou76/go-testing/assert"
 	"github.com/urfave/cli/v2"
 
-	"github.com/ppapapetrou76/go-data-gov-gr-sdk/api"
-	"github.com/ppapapetrou76/go-data-gov-gr-sdk/internal"
 	"github.com/ppapapetrou76/go-data-gov-gr-sdk/internal/cmd"
 )
 
-func main() {
-	app := cliApp()
-	internal.Instance(&http.Client{
-		Timeout: api.DefaultTimeout,
-	})
-
-	if err := app.Run(os.Args); err != nil {
-		log.Fatal(err)
-	}
-}
-
-func cliApp() *cli.App {
-	return &cli.App{
+func Test_cliApp(t *testing.T) {
+	actual := cliApp()
+	expected := &cli.App{
 		Name:  "ggd-cli",
 		Usage: "The opensource CLI of open data available in data.gov.gr by the Greek Government",
 		Authors: []*cli.Author{
@@ -32,4 +19,6 @@ func cliApp() *cli.App {
 		},
 		Commands: cmd.Commands(),
 	}
+
+	assert.ThatStruct(t, actual).ExcludingFields("Commands", "didSetup", "categories").IsEqualTo(expected)
 }

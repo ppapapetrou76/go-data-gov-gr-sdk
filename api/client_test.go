@@ -26,9 +26,9 @@ func TestNewClient(t *testing.T) {
 			expected: &Client{
 				baseURL:   "https://data.gov.gr/api/v1/query",
 				authToken: MockAPIToken,
-				timeout:   time.Second * 30,
+				timeout:   time.Minute,
 				httpClient: &http.Client{
-					Timeout: time.Second * 30,
+					Timeout: time.Minute,
 				},
 			},
 		},
