@@ -1,4 +1,4 @@
-package pharmacist
+package ministrystats
 
 import (
 	"testing"

@@ -1,2 +1,3 @@
 ignore:
   - "internal/testutil.go"
+  - "examples/**"

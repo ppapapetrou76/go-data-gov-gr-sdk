@@ -1,9 +1,9 @@
-package pharmacist
+package ministrystats
 
 // List is a representation of a Data array.
 type List []Data
 
-// Data describes the data returned by the pharmacists API.
+// Data describes the data returned by the ministrystats API.
 type Data struct {
 	Year     int    `json:"year"`
 	Quarter  string `json:"quarter"`
