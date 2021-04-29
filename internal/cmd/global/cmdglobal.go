@@ -27,19 +27,22 @@ func CommonFlags() []cli.Flag {
 
 // DateRangeFlags returns the commonly used date range flags.
 func DateRangeFlags() []cli.Flag {
+	now := time.Now()
+	roundedNow := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, now.Location())
+
 	return []cli.Flag{
 		&cli.TimestampFlag{
 			Name:        "date-from",
 			Usage:       "Used to fetch data after a given date",
 			Layout:      "2006-01-02",
-			Value:       cli.NewTimestamp(time.Now().Add(-times.Week)),
+			Value:       cli.NewTimestamp(roundedNow.Add(-times.Week)),
 			DefaultText: "one week before",
 		},
 		&cli.TimestampFlag{
 			Name:        "date-to",
 			Usage:       "Used to fetch data before a given date",
 			Layout:      "2006-01-02",
-			Value:       cli.NewTimestamp(time.Now()),
+			Value:       cli.NewTimestamp(roundedNow),
 			DefaultText: "today",
 		},
 	}
