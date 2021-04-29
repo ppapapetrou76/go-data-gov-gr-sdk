@@ -1,4 +1,4 @@
-package pharmacist
+package ministrystats
 
 import (
 	"errors"
@@ -49,21 +49,36 @@ func expectedResult() List {
 func TestGet(t *testing.T) {
 	tests := []struct {
 		name        string
-		params      *api.GetParams
+		params      GetParams
 		client      *api.Client
 		expected    List
 		expectedErr error
 	}{
 		{
-			name:        "should fail if API returns an error",
-			client:      internal.NewCommonMockClientError("minhealth_pharmacists", "cannot fetch data"),
-			params:      api.NewDefaultGetParams(),
-			expectedErr: errors.New("get pharmacists data: cannot fetch data"),
+			name:   "should fail if stats category is not valid",
+			client: internal.NewCommonMockClientError("minhealth_pharmacists", "cannot fetch data"),
+			params: GetParams{
+				GetParams: api.NewDefaultGetParams(),
+				Category:  Category("invalid"),
+			},
+			expectedErr: errors.New("ministry stats get validation: category invalid is not recognized. valid categories are: [pharmacists pharmacies doctors dentists]"),
 		},
 		{
-			name:     "should succeed when API call succeeds",
-			client:   internal.NewCommonMockClientSuccess("minhealth_pharmacists", sampleData),
-			params:   api.NewDefaultGetParams(),
+			name:   "should fail if API returns an error",
+			client: internal.NewCommonMockClientError("minhealth_pharmacists", "cannot fetch data"),
+			params: GetParams{
+				GetParams: api.NewDefaultGetParams(),
+				Category:  Category("pharmacists"),
+			},
+			expectedErr: errors.New("get pharmacists: cannot fetch data"),
+		},
+		{
+			name:   "should succeed when API call succeeds",
+			client: internal.NewCommonMockClientSuccess("minhealth_pharmacists", sampleData),
+			params: GetParams{
+				GetParams: api.NewDefaultGetParams(),
+				Category:  Category("pharmacists"),
+			},
 			expected: expectedResult(),
 		},
 	}

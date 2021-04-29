@@ -41,20 +41,19 @@ func TestCommands(t *testing.T) {
 		httpClient     api.HTTPClient
 	}{
 		{
-			name: "should error if auth-token is not provided",
-			args: []string{"", "health", "pharmacist"},
-
+			name:        "should error if auth-token is not provided",
+			args:        []string{"", "health", "ministry-stats"},
 			expectedErr: errors.New(internal.AuthTokenRequiredMsg),
 		},
 		{
-			name: "should error if getting pharmacists data fails",
+			name: "should error if getting ministry-stats data fails",
 			httpClient: api.NewMockHTTPClient(api.MockRequest{
 				Path:  "minhealth_pharmacists",
 				Query: fmt.Sprintf("date_to=%s", time.Now().Format("2006-01-02")),
 				Err:   errors.New("cannot send request"),
 			}),
-			args:        []string{"", "health", "pharmacist", "--auth-token", api.MockAPIToken},
-			expectedErr: errors.New("pharmacists statistics:get pharmacists data: cannot send request"),
+			args:        []string{"", "health", "ministry-stats", "--auth-token", api.MockAPIToken, "-c", "pharmacists"},
+			expectedErr: errors.New("ministry statistics:get pharmacists: cannot send request"),
 		},
 		{
 			name: "should display data in the default json format",
@@ -63,7 +62,7 @@ func TestCommands(t *testing.T) {
 				Query:        fmt.Sprintf("date_to=%s", time.Now().Format("2006-01-02")),
 				ResponseBody: api.NewMockBody(sampleData),
 			}),
-			args:           []string{"", "health", "pharmacist", "--auth-token", api.MockAPIToken},
+			args:           []string{"", "health", "ministry-stats", "--auth-token", api.MockAPIToken, "-c", "pharmacists"},
 			expectedOutput: sampleData,
 		},
 	}

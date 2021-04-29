@@ -37,11 +37,17 @@ func NewCommonMockClientSuccess(path, responseBody string) *api.Client {
 	)
 }
 
-// NewCLIContext returns a simple CLI context to run tests against it.
-func NewCLIContext() *cli.Context {
-	cliApp := &cli.App{Writer: bytes.NewBufferString("")}
+// NewFlagSet returns the base flag set to be added to the CLI contexts for tests running.
+func NewFlagSet() *flag.FlagSet {
 	flagSet := &flag.FlagSet{}
 	flagSet.String("auth-token", api.MockAPIToken, "")
+
+	return flagSet
+}
+
+// NewCLIContext returns a simple CLI context to run tests against it.
+func NewCLIContext(flagSet *flag.FlagSet) *cli.Context {
+	cliApp := &cli.App{Writer: bytes.NewBufferString("")}
 
 	return cli.NewContext(cliApp, flagSet, nil)
 }

@@ -15,7 +15,7 @@ func TestCommand(t *testing.T) {
 		Subcommands: []*cli.Command{
 			vaccinationCmd(),
 			foodInspectionCmd(),
-			pharmacistCmd(),
+			ministryStatsCmd(),
 		},
 	}
 	// We are excluding sub-commands because each one is containing an action func and comparison of funcs always
