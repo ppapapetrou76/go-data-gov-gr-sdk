@@ -2,7 +2,9 @@ package cmd
 
 import (
 	"errors"
+	"fmt"
 	"testing"
+	"time"
 
 	"github.com/ppapapetrou76/go-testing/assert"
 	"github.com/urfave/cli/v2"
@@ -11,7 +13,7 @@ import (
 	"github.com/ppapapetrou76/go-data-gov-gr-sdk/internal"
 )
 
-func Test_HealthCommand_Pharmacists(t *testing.T) {
+func TestCommands(t *testing.T) {
 	sampleData := `[
   {
     "year": 2018,
@@ -46,7 +48,7 @@ func Test_HealthCommand_Pharmacists(t *testing.T) {
 			name: "should error if getting pharmacists data fails",
 			httpClient: api.NewMockHTTPClient(api.MockRequest{
 				Path:  "minhealth_pharmacists",
-				Query: "date_to=2021-04-28",
+				Query: fmt.Sprintf("date_to=%s", time.Now().Format("2006-01-02")),
 				Err:   errors.New("cannot send request"),
 			}),
 			args:        []string{"", "health", "pharmacist", "--auth-token", api.MockAPIToken},
@@ -56,7 +58,7 @@ func Test_HealthCommand_Pharmacists(t *testing.T) {
 			name: "should display data in the default json format",
 			httpClient: api.NewMockHTTPClient(api.MockRequest{
 				Path:         "minhealth_pharmacists",
-				Query:        "date_to=2021-04-28",
+				Query:        fmt.Sprintf("date_to=%s", time.Now().Format("2006-01-02")),
 				ResponseBody: api.NewMockBody(sampleData),
 			}),
 			args:           []string{"", "health", "pharmacist", "--auth-token", api.MockAPIToken},
