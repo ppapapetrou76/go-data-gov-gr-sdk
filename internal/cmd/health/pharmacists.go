@@ -2,7 +2,6 @@ package cmdhealth
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/urfave/cli/v2"
 
@@ -30,7 +29,7 @@ func pharmacistCmd() *cli.Command {
 				return fmt.Errorf("pharmacists statistics:%w", err)
 			}
 			data = data.FilterByYearRange(context.Int("year-from"), context.Int("year-to"))
-			if err := formatter.New(os.Stdout, context.String("output")).Format(data); err != nil {
+			if err := formatter.New(context.App.Writer, context.String("output")).Format(data); err != nil {
 				return fmt.Errorf("pharmacists statistics:%w", err)
 			}
 

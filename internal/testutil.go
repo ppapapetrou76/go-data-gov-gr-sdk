@@ -1,9 +1,13 @@
 package internal
 
 import (
+	"bytes"
 	"errors"
+	"flag"
 	"fmt"
 	"time"
+
+	"github.com/urfave/cli/v2"
 
 	"github.com/ppapapetrou76/go-data-gov-gr-sdk/api"
 )
@@ -31,4 +35,13 @@ func NewCommonMockClientSuccess(path, responseBody string) *api.Client {
 			ResponseBody: api.NewMockBody(responseBody),
 		})),
 	)
+}
+
+// NewCLIContext returns a simple CLI context to run tests against it.
+func NewCLIContext() *cli.Context {
+	cliApp := &cli.App{Writer: bytes.NewBufferString("")}
+	flagSet := &flag.FlagSet{}
+	flagSet.String("auth-token", api.MockAPIToken, "")
+
+	return cli.NewContext(cliApp, flagSet, nil)
 }

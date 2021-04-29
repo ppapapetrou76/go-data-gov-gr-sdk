@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"bytes"
 	"errors"
 	"fmt"
 	"testing"
@@ -29,7 +30,8 @@ func TestCommands(t *testing.T) {
     "entrants": 40,
     "exits": 69
   }
-]`
+]
+`
 	internal.Instance(nil)
 	tests := []struct {
 		name           string
@@ -69,11 +71,17 @@ func TestCommands(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			internal.Get().HTTPClient = tt.httpClient
-			cliApp := &cli.App{}
+			writer := bytes.NewBufferString("")
+			cliApp := &cli.App{
+				Writer: writer,
+			}
 			cliApp.Commands = Commands()
 			err := cliApp.Run(tt.args)
 
 			assert.ThatError(t, err).IsSameAs(tt.expectedErr)
+			if tt.expectedOutput != "" && tt.expectedErr == nil {
+				assert.That(t, writer.String()).IsEqualTo(tt.expectedOutput)
+			}
 		})
 	}
 }
