@@ -5,6 +5,6 @@ go 1.16
 require (
 	github.com/ppapapetrou76/go-testing v0.0.8
 	github.com/stretchr/testify v1.8.0
-	github.com/urfave/cli/v2 v2.7.1
+	github.com/urfave/cli/v2 v2.19.2
 	gopkg.in/yaml.v3 v3.0.1
 )
