@@ -10,7 +10,7 @@ type Formatter interface {
 
 // New creates the proper formatter based on the given name.
 //
-//nolint:ireturn //it's a factory method and it's ok to return an interface.
+//nolint:nolintlint,ireturn //it's a factory method and it's ok to return an interface.
 func New(writer io.Writer, name string) Formatter {
 	switch name {
 	case jsonName:
