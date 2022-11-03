@@ -20,5 +20,7 @@ func Test_cliApp(t *testing.T) {
 		Commands: cmd.Commands(),
 	}
 
-	assert.ThatStruct(t, actual).ExcludingFields("Commands", "didSetup", "categories").IsEqualTo(expected)
+	assert.ThatStruct(t, actual).
+		ExcludingFields("Commands", "didSetup", "categories", "flagCategories", "rootCommand").
+		IsEqualTo(expected)
 }
