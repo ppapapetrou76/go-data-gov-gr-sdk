@@ -50,7 +50,7 @@ func NewClient(authToken string, opts ...Opts) *Client {
 // The `path` argument is added to the client base URL and the optional query parameters are encoded and added to the
 // final URL too.
 func (c *Client) DoGet(ctx context.Context, path string, queryParams ...QueryParam) (*http.Response, error) {
-	req, err := http.NewRequest(http.MethodGet, fmt.Sprintf("%s/%s", c.baseURL, path), nil)
+	req, err := http.NewRequest(http.MethodGet, fmt.Sprintf("%s/%s", c.baseURL, path), http.NoBody)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create new get request: %w", err)
 	}

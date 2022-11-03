@@ -20,6 +20,11 @@ linters:
     - exhaustivestruct
     - gomoddirectives
     - goerr113
+    - exhaustruct
+    - varnamelen
+    - tagliatelle
+    - gomnd
+    - gci
     # should be enabled shortly
 
 linters-settings:

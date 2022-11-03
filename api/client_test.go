@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"testing"
 	"testing/iotest"
@@ -172,7 +171,7 @@ func TestClient_ProcessGetRequest(t *testing.T) {
 					StatusCode:   401,
 					Path:         "some-path",
 					Query:        fmt.Sprintf("date_to=%s", time.Now().Format("2006-01-02")),
-					ResponseBody: ioutil.NopCloser(iotest.ErrReader(errors.New("cannot read response data"))),
+					ResponseBody: io.NopCloser(iotest.ErrReader(errors.New("cannot read response data"))),
 				})),
 			),
 			params:      NewDefaultGetParams(),
@@ -185,7 +184,7 @@ func TestClient_ProcessGetRequest(t *testing.T) {
 					StatusCode:   200,
 					Path:         "some-path",
 					Query:        fmt.Sprintf("date_to=%s", time.Now().Format("2006-01-02")),
-					ResponseBody: ioutil.NopCloser(iotest.ErrReader(errors.New("cannot read response data"))),
+					ResponseBody: io.NopCloser(iotest.ErrReader(errors.New("cannot read response data"))),
 				})),
 			),
 			params:      NewDefaultGetParams(),
