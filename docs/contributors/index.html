@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ppapapetrou76/go-data-gov-gr-sdk contribution ledger</title>
+<meta name="description" content="Contributions to ppapapetrou76/go-data-gov-gr-sdk from 2026-07-12 to 2026-10-09, counted by oss-chronicle.">
+<style>
+:root {
+  --bg: #fbfbfa; --surface: #ffffff; --text: #1d1f21; --muted: #5f6469; --line: #e3e4e2;
+  --accent: #1f6feb; --accent-soft: #e7effd; --heat: 31, 111, 235; --heat-max: 0.5; --row-hover: #f3f4f2;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111315; --surface: #181a1d; --text: #e6e7e8; --muted: #9aa0a6; --line: #2b2e32;
+    --accent: #6ea8ff; --accent-soft: #1b2a42; --heat: 47, 99, 184; --heat-max: 0.9; --row-hover: #1f2226;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+header, main, footer { max-width: 1180px; margin: 0 auto; padding: 0 16px; }
+header { padding-top: 32px; }
+h1 { font-size: 26px; margin: 0 0 4px; letter-spacing: -0.01em; }
+h2 { font-size: 19px; margin: 40px 0 6px; }
+h3 { font-size: 15px; margin: 18px 0 6px; }
+.sub, .note { color: var(--muted); }
+.note { font-size: 13px; margin: 4px 0 12px; max-width: 75ch; }
+nav { position: sticky; top: 0; z-index: 2; background: var(--bg); border-bottom: 1px solid var(--line); margin-top: 20px; }
+nav .in { max-width: 1180px; margin: 0 auto; padding: 8px 16px; display: flex; gap: 18px; overflow-x: auto; white-space: nowrap; }
+nav a { color: var(--muted); font-size: 14px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-top: 20px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; }
+.card b { display: block; font-size: 24px; font-variant-numeric: tabular-nums; }
+.card span { color: var(--muted); font-size: 13px; }
+.scroll { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { padding: 7px 10px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { font-weight: 600; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.03em; background: var(--surface); }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+tbody tr:last-child td { border-bottom: 0; }
+th button { all: unset; cursor: pointer; }
+th button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+th[aria-sort="descending"] button::after { content: " ↓"; }
+th[aria-sort="ascending"] button::after { content: " ↑"; }
+tr.row { cursor: pointer; }
+tr.row:hover td { background: var(--row-hover); }
+tr.row.open td { background: var(--accent-soft); }
+td.disclose { width: 1%; padding-right: 0; }
+td.disclose button { all: unset; cursor: pointer; color: var(--muted); padding: 0 4px; border-radius: 4px; }
+td.disclose button:focus-visible { outline: 2px solid var(--accent); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+tr.detail td { white-space: normal; background: var(--bg); padding: 0; }
+.detail-in { position: sticky; left: 0; padding: 4px 16px 16px; }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 8px 28px; }
+.bars { list-style: none; margin: 0; padding: 0; }
+.bars li { display: grid; grid-template-columns: minmax(120px, 1.3fr) 1fr auto; align-items: center; gap: 8px; font-size: 13px; padding: 2px 0; }
+.bars .bar { height: 8px; border-radius: 4px; background: var(--accent); min-width: 2px; }
+.bars .v { color: var(--muted); font-variant-numeric: tabular-nums; }
+.waiting { margin: 0; padding-left: 18px; font-size: 13px; }
+.waiting li { margin: 3px 0; }
+.waiting .meta { color: var(--muted); }
+.tools { display: flex; gap: 12px; align-items: center; margin: 8px 0 10px; flex-wrap: wrap; }
+input[type=search] { font: inherit; padding: 6px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--text); min-width: 220px; }
+.grid td.cell { text-align: center; font-variant-numeric: tabular-nums; min-width: 44px; }
+.grid th.comp { writing-mode: vertical-rl; transform: rotate(180deg); text-transform: none; letter-spacing: 0; height: 150px; vertical-align: bottom; text-align: left; font-size: 12px; }
+.mono { font-family: var(--mono); font-size: 13px; }
+footer { color: var(--muted); font-size: 13px; padding-top: 32px; padding-bottom: 48px; }
+footer p { max-width: 80ch; }
+.empty { color: var(--muted); padding: 14px; }
+.period { display: flex; gap: 8px; align-items: center; margin-top: 12px; flex-wrap: wrap; font-size: 14px; }
+.period select { font: inherit; padding: 6px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--text); max-width: 100%; }
+</style>
+</head>
+<body>
+<header>
+  <h1 id="title"></h1>
+  <div class="sub" id="subtitle"></div>
+  <div class="period" id="period"></div>
+</header>
+<nav aria-label="Sections"><div class="in">
+  <a href="#people">People</a><a href="#components">Components</a><a href="#grid">Who reviews what</a>
+  <a href="#size">Size</a><a href="#left-out">Left out</a><a href="#method">How it counts</a>
+</div></nav>
+<main>
+  <div class="cards" id="cards"></div>
+
+  <section id="people">
+    <h2>People</h2>
+    <p class="note">Total = PRs landed + PRs reviewed + comments + merges + triage closes. Maintenance (backport and dependency PRs) is shown separately. Select a person for their breakdown.</p>
+    <div class="tools"><input type="search" id="people-filter" placeholder="Filter by login" aria-label="Filter people by login"><span class="sub" id="people-count"></span></div>
+    <div class="scroll"><table id="people-table"></table></div>
+  </section>
+
+  <section id="components">
+    <h2>Components</h2>
+    <p class="note">Each PR belongs to the component where most of its counted lines changed. A response is a review, comment, merge or close by anyone but the author and bots. Select a component for its reviewers and the PRs waiting for a first response. The waiting lists show open PRs as they were when the data was collected, whatever the period.</p>
+    <div class="scroll"><table id="components-table"></table></div>
+  </section>
+
+  <section id="grid">
+    <h2>Who reviews what</h2>
+    <p class="note">Reviews per person and component, for the people with the most reviews. Darker cells are a larger share of that component's reviews.</p>
+    <div class="scroll"><table class="grid" id="grid-table"></table></div>
+  </section>
+
+  <section id="size">
+    <h2>Size of landed PRs</h2>
+    <p class="note" id="size-note"></p>
+    <div class="scroll"><table id="size-table"></table></div>
+  </section>
+
+  <section id="left-out">
+    <h2>Left out</h2>
+    <p class="note">Activity GitHub records that is not counted, and why. Work on maintenance PRs is credited in the maintenance column instead.</p>
+    <div class="scroll"><table id="dropped-table"></table></div>
+  </section>
+</main>
+<footer id="method">
+  <h2>How it counts</h2>
+  <p>A landed PR is credited once to its author, replacing the commits, rebases and replies behind it. A review counts once per reviewer per PR, on someone else's PR. Merges go to the person who merged, or to the person whose merge command a bot acted on. Authoring weight sums the size weights of a person's landed PRs; reviewing weight sums the weights of the PRs they reviewed, multiplied by <span id="feedback-multiple"></span> when the review left feedback.</p>
+  <p>Generated by <a href="https://github.com/ppapapetrou76/oss-chronicle">oss-chronicle</a> on 2026-10-09 15:41 UTC from GitHub pull request data. Only GitHub logins are shown; people listed in the project's opt-out are left out of every table, though PRs they opened can still appear, without their name, among those waiting for a response.</p>
+</footer>
+<script type="application/json" id="ledger-data">{"repository":"ppapapetrou76/go-data-gov-gr-sdk","default_branch":"main","from":"2026-07-12","to":"2026-10-09","pull_requests":2,"totals":{"landed":1,"reviewed":0,"reviewed_with_feedback":0,"commented":0,"merged":1,"triaged":0,"maintenance":1,"authoring_weight":2,"reviewing_weight":0},"size":{"buckets":[{"name":"XS","max":10,"weight":0.5,"landed":0},{"name":"S","max":50,"weight":1,"landed":0},{"name":"M","max":250,"weight":2,"landed":1},{"name":"L","weight":3,"landed":0}],"changed_lines":77,"excluded_lines":0,"counted_lines":77,"unsized":0,"review_feedback_multiplier":2},"people":[{"login":"ppapapetrou76","landed":1,"reviewed":0,"reviewed_with_feedback":0,"commented":0,"merged":1,"triaged":0,"maintenance":1,"total":2,"authoring_weight":2,"reviewing_weight":0}],"components":[{"name":".github","landed":1,"touched":1,"authors":1,"landed_by":[{"login":"ppapapetrou76","landed":1}],"median_time_to_merge_hours":1.4,"opened":1,"median_first_response_hours":null,"no_response":1,"reviews":0,"reviewer_count":0,"top_reviewer":"","top_reviewer_share":0,"reviewers_for_half":0,"reviewers":[],"waiting":[]}],"dropped":[{"reason":"closed_by_merge","label":"\"Closed\" event fired by every merge","count":2,"maintenance":false},{"reason":"branch_commits","label":"PR-branch commits (replaced by one credit per merged PR)","count":1,"maintenance":false},{"reason":"maintenance_merges","label":"Merges of backport or dependency PRs","count":1,"maintenance":true}]}</script>
+<script type="application/json" id="periods-data">[{"id":"7d","label":"Last 7 days","from":"2026-10-03","to":"2026-10-09","default":false,"ledger":{"repository":"ppapapetrou76/go-data-gov-gr-sdk","default_branch":"main","from":"2026-10-03","to":"2026-10-09","pull_requests":2,"totals":{"landed":1,"reviewed":0,"reviewed_with_feedback":0,"commented":0,"merged":1,"triaged":0,"maintenance":1,"authoring_weight":2,"reviewing_weight":0},"size":{"buckets":[{"name":"XS","max":10,"weight":0.5,"landed":0},{"name":"S","max":50,"weight":1,"landed":0},{"name":"M","max":250,"weight":2,"landed":1},{"name":"L","weight":3,"landed":0}],"changed_lines":77,"excluded_lines":0,"counted_lines":77,"unsized":0,"review_feedback_multiplier":2},"people":[{"login":"ppapapetrou76","landed":1,"reviewed":0,"reviewed_with_feedback":0,"commented":0,"merged":1,"triaged":0,"maintenance":1,"total":2,"authoring_weight":2,"reviewing_weight":0}],"components":[{"name":".github","landed":1,"touched":1,"authors":1,"landed_by":[{"login":"ppapapetrou76","landed":1}],"median_time_to_merge_hours":1.4,"opened":1,"median_first_response_hours":null,"no_response":1,"reviews":0,"reviewer_count":0,"top_reviewer":"","top_reviewer_share":0,"reviewers_for_half":0,"reviewers":[],"waiting":null}],"dropped":[{"reason":"closed_by_merge","label":"\"Closed\" event fired by every merge","count":2,"maintenance":false},{"reason":"branch_commits","label":"PR-branch commits (replaced by one credit per merged PR)","count":1,"maintenance":false},{"reason":"maintenance_merges","label":"Merges of backport or dependency PRs","count":1,"maintenance":true}]}},{"id":"30d","label":"Last 30 days","from":"2026-09-10","to":"2026-10-09","default":false,"ledger":{"repository":"ppapapetrou76/go-data-gov-gr-sdk","default_branch":"main","from":"2026-09-10","to":"2026-10-09","pull_requests":2,"totals":{"landed":1,"reviewed":0,"reviewed_with_feedback":0,"commented":0,"merged":1,"triaged":0,"maintenance":1,"authoring_weight":2,"reviewing_weight":0},"size":{"buckets":[{"name":"XS","max":10,"weight":0.5,"landed":0},{"name":"S","max":50,"weight":1,"landed":0},{"name":"M","max":250,"weight":2,"landed":1},{"name":"L","weight":3,"landed":0}],"changed_lines":77,"excluded_lines":0,"counted_lines":77,"unsized":0,"review_feedback_multiplier":2},"people":[{"login":"ppapapetrou76","landed":1,"reviewed":0,"reviewed_with_feedback":0,"commented":0,"merged":1,"triaged":0,"maintenance":1,"total":2,"authoring_weight":2,"reviewing_weight":0}],"components":[{"name":".github","landed":1,"touched":1,"authors":1,"landed_by":[{"login":"ppapapetrou76","landed":1}],"median_time_to_merge_hours":1.4,"opened":1,"median_first_response_hours":null,"no_response":1,"reviews":0,"reviewer_count":0,"top_reviewer":"","top_reviewer_share":0,"reviewers_for_half":0,"reviewers":[],"waiting":null}],"dropped":[{"reason":"closed_by_merge","label":"\"Closed\" event fired by every merge","count":2,"maintenance":false},{"reason":"branch_commits","label":"PR-branch commits (replaced by one credit per merged PR)","count":1,"maintenance":false},{"reason":"maintenance_merges","label":"Merges of backport or dependency PRs","count":1,"maintenance":true}]}},{"id":"90d","label":"Last 90 days","from":"2026-07-12","to":"2026-10-09","default":true},{"id":"180d","label":"Last 180 days","from":"2026-04-13","to":"2026-10-09","default":false,"ledger":{"repository":"ppapapetrou76/go-data-gov-gr-sdk","default_branch":"main","from":"2026-04-13","to":"2026-10-09","pull_requests":2,"totals":{"landed":1,"reviewed":0,"reviewed_with_feedback":0,"commented":0,"merged":1,"triaged":0,"maintenance":1,"authoring_weight":2,"reviewing_weight":0},"size":{"buckets":[{"name":"XS","max":10,"weight":0.5,"landed":0},{"name":"S","max":50,"weight":1,"landed":0},{"name":"M","max":250,"weight":2,"landed":1},{"name":"L","weight":3,"landed":0}],"changed_lines":77,"excluded_lines":0,"counted_lines":77,"unsized":0,"review_feedback_multiplier":2},"people":[{"login":"ppapapetrou76","landed":1,"reviewed":0,"reviewed_with_feedback":0,"commented":0,"merged":1,"triaged":0,"maintenance":1,"total":2,"authoring_weight":2,"reviewing_weight":0}],"components":[{"name":".github","landed":1,"touched":1,"authors":1,"landed_by":[{"login":"ppapapetrou76","landed":1}],"median_time_to_merge_hours":1.4,"opened":1,"median_first_response_hours":null,"no_response":1,"reviews":0,"reviewer_count":0,"top_reviewer":"","top_reviewer_share":0,"reviewers_for_half":0,"reviewers":[],"waiting":null}],"dropped":[{"reason":"closed_by_merge","label":"\"Closed\" event fired by every merge","count":2,"maintenance":false},{"reason":"branch_commits","label":"PR-branch commits (replaced by one credit per merged PR)","count":1,"maintenance":false},{"reason":"maintenance_merges","label":"Merges of backport or dependency PRs","count":1,"maintenance":true}]}},{"id":"365d","label":"Last 365 days","from":"2025-10-10","to":"2026-10-09","default":false,"ledger":{"repository":"ppapapetrou76/go-data-gov-gr-sdk","default_branch":"main","from":"2025-10-10","to":"2026-10-09","pull_requests":3,"totals":{"landed":1,"reviewed":0,"reviewed_with_feedback":0,"commented":0,"merged":1,"triaged":0,"maintenance":2,"authoring_weight":2,"reviewing_weight":0},"size":{"buckets":[{"name":"XS","max":10,"weight":0.5,"landed":0},{"name":"S","max":50,"weight":1,"landed":0},{"name":"M","max":250,"weight":2,"landed":1},{"name":"L","weight":3,"landed":0}],"changed_lines":77,"excluded_lines":0,"counted_lines":77,"unsized":0,"review_feedback_multiplier":2},"people":[{"login":"ppapapetrou76","landed":1,"reviewed":0,"reviewed_with_feedback":0,"commented":0,"merged":1,"triaged":0,"maintenance":2,"total":2,"authoring_weight":2,"reviewing_weight":0}],"components":[{"name":".github","landed":1,"touched":1,"authors":1,"landed_by":[{"login":"ppapapetrou76","landed":1}],"median_time_to_merge_hours":1.4,"opened":1,"median_first_response_hours":null,"no_response":1,"reviews":0,"reviewer_count":0,"top_reviewer":"","top_reviewer_share":0,"reviewers_for_half":0,"reviewers":[],"waiting":null}],"dropped":[{"reason":"closed_by_merge","label":"\"Closed\" event fired by every merge","count":2,"maintenance":false},{"reason":"merge_commits","label":"Merge commits on PR branches","count":2,"maintenance":false},{"reason":"branch_commits","label":"PR-branch commits (replaced by one credit per merged PR)","count":1,"maintenance":false},{"reason":"maintenance_merges","label":"Merges of backport or dependency PRs","count":1,"maintenance":true},{"reason":"maintenance_reviews","label":"Reviews on backport or dependency PRs","count":1,"maintenance":true}]}},{"id":"last-month","label":"Last month (September 2026)","from":"2026-09-01","to":"2026-09-30","default":false,"ledger":{"repository":"ppapapetrou76/go-data-gov-gr-sdk","default_branch":"main","from":"2026-09-01","to":"2026-09-30","pull_requests":0,"totals":{"landed":0,"reviewed":0,"reviewed_with_feedback":0,"commented":0,"merged":0,"triaged":0,"maintenance":0,"authoring_weight":0,"reviewing_weight":0},"size":{"buckets":[{"name":"XS","max":10,"weight":0.5,"landed":0},{"name":"S","max":50,"weight":1,"landed":0},{"name":"M","max":250,"weight":2,"landed":0},{"name":"L","weight":3,"landed":0}],"changed_lines":0,"excluded_lines":0,"counted_lines":0,"unsized":0,"review_feedback_multiplier":2},"people":null,"components":[],"dropped":null}},{"id":"last-quarter","label":"Last quarter (Q3 2026)","from":"2026-07-01","to":"2026-09-30","default":false,"ledger":{"repository":"ppapapetrou76/go-data-gov-gr-sdk","default_branch":"main","from":"2026-07-01","to":"2026-09-30","pull_requests":0,"totals":{"landed":0,"reviewed":0,"reviewed_with_feedback":0,"commented":0,"merged":0,"triaged":0,"maintenance":0,"authoring_weight":0,"reviewing_weight":0},"size":{"buckets":[{"name":"XS","max":10,"weight":0.5,"landed":0},{"name":"S","max":50,"weight":1,"landed":0},{"name":"M","max":250,"weight":2,"landed":0},{"name":"L","weight":3,"landed":0}],"changed_lines":0,"excluded_lines":0,"counted_lines":0,"unsized":0,"review_feedback_multiplier":2},"people":null,"components":[],"dropped":null}},{"id":"last-year","label":"Last year (2025)","from":"2025-01-01","to":"2025-12-31","default":false,"ledger":{"repository":"ppapapetrou76/go-data-gov-gr-sdk","default_branch":"main","from":"2025-01-01","to":"2025-12-31","pull_requests":2,"totals":{"landed":0,"reviewed":0,"reviewed_with_feedback":0,"commented":0,"merged":0,"triaged":0,"maintenance":1,"authoring_weight":0,"reviewing_weight":0},"size":{"buckets":[{"name":"XS","max":10,"weight":0.5,"landed":0},{"name":"S","max":50,"weight":1,"landed":0},{"name":"M","max":250,"weight":2,"landed":0},{"name":"L","weight":3,"landed":0}],"changed_lines":0,"excluded_lines":0,"counted_lines":0,"unsized":0,"review_feedback_multiplier":2},"people":[{"login":"ppapapetrou76","landed":0,"reviewed":0,"reviewed_with_feedback":0,"commented":0,"merged":0,"triaged":0,"maintenance":1,"total":0,"authoring_weight":0,"reviewing_weight":0}],"components":[],"dropped":[{"reason":"merge_commits","label":"Merge commits on PR branches","count":2,"maintenance":false},{"reason":"maintenance_reviews","label":"Reviews on backport or dependency PRs","count":1,"maintenance":true}]}}]</script>
+<script>
+"use strict";
+const DEFAULT = JSON.parse(document.getElementById("ledger-data").textContent);
+const PERIODS = JSON.parse(document.getElementById("periods-data").textContent) || [];
+const wanted = new URLSearchParams(location.search).get("period");
+const PERIOD = PERIODS.find(p => p.id === wanted && p.ledger) || PERIODS.find(p => p.default) || null;
+const L = PERIOD && PERIOD.ledger ? PERIOD.ledger : DEFAULT;
+if (L !== DEFAULT) {
+  const waiting = new Map((DEFAULT.components || []).map(c => [c.name, c.waiting]));
+  for (const c of L.components || []) c.waiting = waiting.get(c.name) || [];
+}
+const SERVER = "https://github.com";
+
+function el(tag, attrs, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (v === null || v === undefined || v === false) continue;
+    if (k === "class") e.className = v;
+    else if (k === "style") e.style.cssText = v;
+    else if (k.startsWith("on")) e.addEventListener(k.slice(2), v);
+    else e.setAttribute(k, v === true ? "" : v);
+  }
+  for (const k of kids.flat()) if (k !== null && k !== undefined) e.append(k instanceof Node ? k : String(k));
+  return e;
+}
+const fmt = new Intl.NumberFormat("en-US", {maximumFractionDigits: 2});
+const num = n => fmt.format(n || 0);
+const pct = s => fmt.format(Math.round(s * 1000) / 10) + "%";
+const dur = h => h == null ? "–" : h < 48 ? fmt.format(Math.round(h * 10) / 10) + " h" : fmt.format(Math.round(h / 24 * 10) / 10) + " d";
+const profile = login => el("a", {href: SERVER + "/" + encodeURIComponent(login)}, login);
+const prLink = n => el("a", {href: SERVER + "/" + L.repository + "/pull/" + n}, "#" + n);
+const comps = L.components || [];
+const people = L.people || [];
+
+document.title = L.repository + " contribution ledger";
+document.getElementById("title").append(el("a", {href: SERVER + "/" + L.repository}, L.repository), " contribution ledger");
+document.getElementById("subtitle").textContent =
+  L.from + " to " + L.to + " · " + num(L.pull_requests) + " pull requests with activity · default branch " + L.default_branch;
+if (PERIODS.length > 1) {
+  const select = el("select", {id: "period-select", onchange: e => {
+    const p = PERIODS.find(x => x.id === e.target.value);
+    const q = new URLSearchParams(location.search);
+    if (!p || p.default) q.delete("period"); else q.set("period", p.id);
+    const s = q.toString();
+    location.search = s ? "?" + s : "";
+  }}, PERIODS.map(p => el("option", {value: p.id, selected: PERIOD && p.id === PERIOD.id},
+    p.label + " · " + p.from + " to " + p.to)));
+  document.getElementById("period").append(el("label", {for: "period-select"}, "Period"), select);
+}
+document.getElementById("feedback-multiple").textContent = num(L.size && L.size.review_feedback_multiplier);
+
+const t = L.totals;
+for (const [v, label] of [[t.landed, "PRs landed"], [t.reviewed, "PRs reviewed"], [t.reviewed_with_feedback, "reviews with feedback"],
+  [t.commented, "comments"], [t.merged, "merges"], [t.triaged, "triage closes"], [t.maintenance, "maintenance actions"]]) {
+  document.getElementById("cards").append(el("div", {class: "card"}, el("b", {}, num(v)), el("span", {}, label)));
+}
+
+
+
+function sortable(table, cols, rows, opts) {
+  let sortKey = opts.sortKey, dir = -1, open = null;
+  const head = el("tr");
+  const body = el("tbody");
+  table.replaceChildren(el("thead", {}, head), body);
+  const value = (r, c) => c.get ? c.get(r) : r[c.key];
+  const span = cols.length + 1;
+  function draw() {
+    const focused = table.contains(document.activeElement) ? document.activeElement.dataset.focus : null;
+    head.replaceChildren(el("th", {scope: "col"}, el("span", {class: "sr"}, "Details")), ...cols.map(c => el("th", {class: c.num ? "n" : null, scope: "col",
+      "aria-sort": c.key === sortKey ? (dir < 0 ? "descending" : "ascending") : null},
+      el("button", {type: "button", "data-focus": "sort:" + c.key,
+        onclick: () => { dir = c.key === sortKey ? -dir : (c.asc || !c.num ? 1 : -1); sortKey = c.key; draw(); }}, c.label))));
+    const filter = opts.filter ? opts.filter() : () => true;
+    const col = cols.find(c => c.key === sortKey);
+    const sorted = rows.filter(filter).sort((a, b) => {
+      const x = value(a, col), y = value(b, col);
+      if (x === y) return opts.tie(a, b);
+      if (x === null || x === undefined) return 1;
+      if (y === null || y === undefined) return -1;
+      if (typeof x === "string") return x.localeCompare(y, "en", {sensitivity: "base"}) * dir || opts.tie(a, b);
+      return (x < y ? -1 : 1) * dir;
+    });
+    body.replaceChildren();
+    for (const r of sorted) {
+      const id = opts.id(r), expanded = open === id, detailId = table.id + "-detail";
+      const toggle = () => { open = expanded ? null : id; draw(); };
+      const tr = el("tr", {class: "row" + (expanded ? " open" : ""), onclick: e => { if (!e.target.closest("a, button")) toggle(); }},
+        el("td", {class: "disclose"}, el("button", {type: "button", "data-focus": "row:" + id, "aria-expanded": String(expanded),
+          "aria-controls": expanded ? detailId : null, "aria-label": "Details for " + id, onclick: toggle}, expanded ? "▾" : "▸")),
+        cols.map(c => el("td", {class: c.num ? "n" : null}, c.render ? c.render(r) : (c.num ? num(value(r, c)) : value(r, c)))));
+      body.append(tr);
+      if (expanded) {
+        const box = el("div", {class: "detail-in", style: "width:" + table.parentElement.clientWidth + "px"}, opts.detail(r));
+        body.append(el("tr", {class: "detail", id: detailId}, el("td", {colspan: span}, box)));
+      }
+    }
+    if (!sorted.length) body.append(el("tr", {}, el("td", {colspan: span, class: "empty"}, "Nothing to show.")));
+    if (opts.drawn) opts.drawn(sorted.length);
+    if (focused) {
+      const target = [...table.querySelectorAll("[data-focus]")].find(e => e.dataset.focus === focused);
+      if (target) target.focus();
+    }
+  }
+  draw();
+  let width = table.parentElement.clientWidth, timer;
+  window.addEventListener("resize", () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => { if (open !== null && table.parentElement.clientWidth !== width) { width = table.parentElement.clientWidth; draw(); } }, 150);
+  });
+  return draw;
+}
+
+function bars(items, total, label) {
+  if (!items.length) return el("p", {class: "sub"}, "None in this window.");
+  const max = Math.max(...items.map(i => i.value));
+  return el("ul", {class: "bars"}, items.map(i => el("li", {},
+    el("span", {}, i.label), el("span", {}, el("div", {class: "bar", style: "width:" + (100 * i.value / max) + "%"})),
+    el("span", {class: "v"}, num(i.value) + (total ? " · " + pct(i.value / total) : "")))));
+}
+
+const rank = new Map(people.map((p, i) => [p.login, i + 1]));
+function personDetail(p) {
+  const landed = [], reviewed = [];
+  for (const c of comps) {
+    const a = c.landed_by && c.landed_by.find(x => x.login === p.login);
+    if (a) landed.push({label: c.name, value: a.landed});
+    const r = (c.reviewers || []).find(x => x.login === p.login);
+    if (r) reviewed.push({label: c.name, value: r.reviews});
+  }
+  landed.sort((a, b) => b.value - a.value); reviewed.sort((a, b) => b.value - a.value);
+  return el("div", {class: "cols"},
+    el("div", {}, el("h3", {}, "Summary"), el("ul", {class: "bars"},
+      [["Rank by total", "#" + rank.get(p.login)], ["Reviews with feedback", num(p.reviewed_with_feedback) + " of " + num(p.reviewed)],
+       ["Authoring weight", num(p.authoring_weight)], ["Reviewing weight", num(p.reviewing_weight)], ["Maintenance", num(p.maintenance)]]
+        .map(([k, v]) => el("li", {style: "grid-template-columns: 1fr auto"}, el("span", {}, k), el("span", {class: "v"}, v)))),
+      el("p", {}, profile(p.login), " on GitHub")),
+    el("div", {}, el("h3", {}, "PRs landed, by component"),
+      comps.length && comps.every(c => !c.landed_by) ? el("p", {class: "sub"}, "Not in this ledger; rebuild it with a newer oss-chronicle.") : bars(landed, p.landed)),
+    el("div", {}, el("h3", {}, "PRs reviewed, by component"), bars(reviewed, p.reviewed)));
+}
+
+const filterInput = document.getElementById("people-filter");
+const drawPeople = sortable(document.getElementById("people-table"), [
+  {key: "rank", label: "#", num: true, asc: true, get: p => rank.get(p.login)},
+  {key: "login", label: "Contributor", render: p => profile(p.login)},
+  {key: "total", label: "Total", num: true, render: p => el("b", {}, num(p.total))},
+  {key: "landed", label: "Landed", num: true}, {key: "reviewed", label: "Reviewed", num: true},
+  {key: "commented", label: "Comments", num: true}, {key: "merged", label: "Merges", num: true},
+  {key: "triaged", label: "Triage", num: true}, {key: "maintenance", label: "Maintenance", num: true},
+  {key: "authoring_weight", label: "Authoring weight", num: true}, {key: "reviewing_weight", label: "Reviewing weight", num: true},
+], people, {
+  sortKey: "total", id: p => p.login, tie: (a, b) => rank.get(a.login) - rank.get(b.login), detail: personDetail,
+  filter: () => { const q = filterInput.value.trim().toLowerCase(); return p => !q || p.login.toLowerCase().includes(q); },
+  drawn: n => { document.getElementById("people-count").textContent = num(n) + " of " + num(people.length) + " people"; },
+});
+let filterTimer;
+filterInput.addEventListener("input", () => { clearTimeout(filterTimer); filterTimer = setTimeout(drawPeople, 120); });
+
+function componentDetail(c) {
+  return el("div", {class: "cols"},
+    el("div", {}, el("h3", {}, "Reviewers"), bars((c.reviewers || []).slice(0, 12).map(r => ({label: r.login, value: r.reviews})), c.reviews),
+      c.reviewer_count > 12 ? el("p", {class: "sub"}, "and " + (c.reviewer_count - 12) + " more") : null),
+    el("div", {}, el("h3", {}, "PRs landed by"), bars((c.landed_by || []).slice(0, 12).map(a => ({label: a.login, value: a.landed})), c.landed),
+      (c.landed_by || []).length > 12 ? el("p", {class: "sub"}, "and " + (c.landed_by.length - 12) + " more") : null),
+    el("div", {}, el("h3", {}, "Waiting for a first response"),
+      (c.waiting || []).length ? el("ol", {class: "waiting"}, c.waiting.slice(0, 25).map(w => el("li", {}, prLink(w.number), " ", w.title,
+        el("div", {class: "meta"}, (w.author ? w.author + " · " : "") + "opened " + w.created_at.slice(0, 10)))))
+        : el("p", {class: "sub"}, "None."),
+      (c.waiting || []).length > 25 ? el("p", {class: "sub"}, "and " + (c.waiting.length - 25) + " more in ledger.json") : null));
+}
+
+sortable(document.getElementById("components-table"), [
+  {key: "name", label: "Component"},
+  {key: "landed", label: "Landed", num: true}, {key: "touched", label: "Touched", num: true}, {key: "authors", label: "Authors", num: true},
+  {key: "reviews", label: "Reviews", num: true}, {key: "reviewer_count", label: "Reviewers", num: true},
+  {key: "top_reviewer_share", label: "Top reviewer", num: true,
+    render: c => c.reviews ? (c.top_reviewer ? c.top_reviewer + " · " : "") + pct(c.top_reviewer_share) : "–"},
+  {key: "reviewers_for_half", label: "Half the reviews", num: true},
+  {key: "median_first_response_hours", label: "First response", num: true, render: c => dur(c.median_first_response_hours)},
+  {key: "median_time_to_merge_hours", label: "Time to merge", num: true, render: c => dur(c.median_time_to_merge_hours)},
+  {key: "waiting", label: "Waiting", num: true, get: c => (c.waiting || []).length},
+], comps, {sortKey: "landed", id: c => c.name, tie: (a, b) => a.name < b.name ? -1 : 1, detail: componentDetail});
+
+(function grid() {
+  const table = document.getElementById("grid-table");
+  const totals = new Map();
+  for (const c of comps) for (const r of c.reviewers || []) totals.set(r.login, (totals.get(r.login) || 0) + r.reviews);
+  const top = [...totals.entries()].sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1)).slice(0, 25);
+  const cols = comps.filter(c => c.reviews > 0);
+  if (!top.length) { table.append(el("tbody", {}, el("tr", {}, el("td", {class: "empty"}, "No reviews in this window.")))); return; }
+  table.append(el("thead", {}, el("tr", {}, el("th", {scope: "col"}, "Reviewer"), el("th", {class: "n", scope: "col"}, "Reviews"),
+    cols.map(c => el("th", {class: "comp", scope: "col", title: c.name}, c.name)))));
+  table.append(el("tbody", {}, top.map(([login, total]) => el("tr", {}, el("td", {}, profile(login)), el("td", {class: "n"}, num(total)),
+    cols.map(c => {
+      const r = (c.reviewers || []).find(x => x.login === login);
+      if (!r) return el("td", {class: "cell"});
+      const share = r.reviews / c.reviews;
+      return el("td", {class: "cell", title: login + ": " + num(r.reviews) + " of " + num(c.reviews) + " reviews in " + c.name + " (" + pct(share) + ")",
+        style: "background: rgba(var(--heat), calc(0.06 + (var(--heat-max) - 0.06) * " + share.toFixed(3) + "))"}, num(r.reviews));
+    })))));
+})();
+
+(function size() {
+  const s = L.size;
+  const table = document.getElementById("size-table");
+  if (!s || !(s.buckets || []).length) { table.append(el("tbody", {}, el("tr", {}, el("td", {class: "empty"}, "No size data in this ledger.")))); return; }
+  let lower = 0;
+  table.append(el("thead", {}, el("tr", {}, ["Size", "Counted lines", "Weight", "PRs"].map((h, i) => el("th", {class: i > 1 ? "n" : null, scope: "col"}, h)))));
+  table.append(el("tbody", {}, s.buckets.map(b => {
+    const range = b.max == null ? "over " + num(lower) : num(lower) + "–" + num(b.max);
+    if (b.max != null) lower = b.max;
+    return el("tr", {}, el("td", {}, b.name), el("td", {}, range), el("td", {class: "n"}, num(b.weight)), el("td", {class: "n"}, num(b.landed)));
+  })));
+  const notes = [];
+  if (s.changed_lines) notes.push(pct(s.excluded_lines / s.changed_lines) + " of the " + num(s.changed_lines) + " lines changed by landed PRs are in generated, vendored or lock files and are not counted.");
+  if (s.unsized) notes.push(num(s.unsized) + " landed PRs have no file data and carry no weight.");
+  document.getElementById("size-note").textContent = notes.join(" ");
+})();
+
+(function dropped() {
+  const table = document.getElementById("dropped-table");
+  table.append(el("thead", {}, el("tr", {}, el("th", {scope: "col"}, "Activity"), el("th", {class: "n", scope: "col"}, "Count"))));
+  const rows = (L.dropped || []).map(d => el("tr", {},
+    el("td", {}, d.label + (d.maintenance ? " (credited as maintenance)" : "")), el("td", {class: "n"}, num(d.count))));
+  table.append(el("tbody", {}, rows.length ? rows : el("tr", {}, el("td", {colspan: 2, class: "empty"}, "Nothing left out."))));
+})();
+</script>
+</body>
+</html>
