@@ -1,9 +1,9 @@
 {
   "repository": "ppapapetrou76/go-data-gov-gr-sdk",
   "default_branch": "main",
-  "from": "2026-07-12",
-  "to": "2026-10-09",
-  "pull_requests": 2,
+  "from": "2026-07-15",
+  "to": "2026-10-12",
+  "pull_requests": 4,
   "totals": {
     "landed": 1,
     "reviewed": 0,
@@ -11,7 +11,7 @@
     "commented": 0,
     "merged": 1,
     "triaged": 0,
-    "maintenance": 1,
+    "maintenance": 3,
     "authoring_weight": 2,
     "reviewing_weight": 0
   },
@@ -56,7 +56,7 @@
       "commented": 0,
       "merged": 1,
       "triaged": 0,
-      "maintenance": 1,
+      "maintenance": 3,
       "total": 2,
       "authoring_weight": 2,
       "reviewing_weight": 0
@@ -91,8 +91,14 @@
     {
       "reason": "closed_by_merge",
       "label": "\"Closed\" event fired by every merge",
-      "count": 2,
+      "count": 3,
       "maintenance": false
+    },
+    {
+      "reason": "maintenance_merges",
+      "label": "Merges of backport, dependency or bot PRs",
+      "count": 2,
+      "maintenance": true
     },
     {
       "reason": "branch_commits",
@@ -101,10 +107,147 @@
       "maintenance": false
     },
     {
-      "reason": "maintenance_merges",
-      "label": "Merges of backport or dependency PRs",
+      "reason": "maintenance_closes",
+      "label": "Closing backport, dependency or bot PRs",
       "count": 1,
       "maintenance": true
     }
-  ]
+  ],
+  "rules": [
+    {
+      "label": "Backport pull requests: head branch starts with",
+      "values": [
+        "cherry-pick",
+        "backport",
+        "automated-cherry-pick-of-",
+        "mergify/bp/"
+      ]
+    },
+    {
+      "label": "Backport pull requests: target branch, other than the default branch, matches",
+      "values": [
+        "release-*",
+        "release/*",
+        "release_*",
+        "stable-*",
+        "stable/*",
+        "*-stable",
+        "v[0-9]*"
+      ]
+    },
+    {
+      "label": "Dependency pull requests: author login contains",
+      "values": [
+        "dependabot",
+        "renovate"
+      ]
+    },
+    {
+      "label": "Dependency pull requests: title starts with",
+      "values": [
+        "chore(deps",
+        "fix(deps",
+        "build(deps"
+      ]
+    },
+    {
+      "label": "Bots, besides GitHub App accounts: login contains",
+      "values": [
+        "[bot]",
+        "-bot",
+        "-robot",
+        "mergebot",
+        "dependabot",
+        "renovate",
+        "github-actions",
+        "copilot",
+        "codecov",
+        "coderabbit",
+        "sonarqube",
+        "netlify",
+        "snyk"
+      ]
+    },
+    {
+      "label": "Bots: login is",
+      "values": [
+        "bors",
+        "homu"
+      ]
+    },
+    {
+      "label": "Bot commands, not counted as comments: comments starting with",
+      "values": [
+        "/",
+        "@dependabot",
+        "@renovate"
+      ]
+    },
+    {
+      "label": "Approval commands, counted as a review",
+      "values": [
+        "/lgtm",
+        "/approve",
+        "@bors r+",
+        "@bors r=",
+        "bors r+",
+        "bors r="
+      ]
+    },
+    {
+      "label": "Merge commands, crediting a bot's merge to the person who gave them",
+      "values": [
+        "/approve",
+        "/merge",
+        "@bors r+",
+        "@bors r=",
+        "bors r+",
+        "bors r=",
+        "@bors merge",
+        "bors merge",
+        "@mergifyio queue",
+        "@mergifyio merge",
+        "@pytorchbot merge",
+        "@pytorchmergebot merge"
+      ]
+    },
+    {
+      "label": "Left out of counted lines",
+      "values": [
+        "the built-in list: lock files, vendored code, generated protobuf and deepcopy files, minified files and test snapshots",
+        "files .gitattributes marks generated, vendored or binary"
+      ]
+    },
+    {
+      "label": "Counted lines",
+      "values": [
+        "additions + 1 × deletions"
+      ]
+    },
+    {
+      "label": "Size buckets",
+      "values": [
+        "XS: up to 10 counted lines, weight 0.5",
+        "S: up to 50 counted lines, weight 1",
+        "M: up to 250 counted lines, weight 2",
+        "L: over 250 counted lines, weight 3"
+      ]
+    },
+    {
+      "label": "Reviewing weight multiplier for a review with feedback",
+      "values": [
+        "2"
+      ]
+    },
+    {
+      "label": "Components, first match wins",
+      "values": [
+        "the top-level directory"
+      ]
+    }
+  ],
+  "generator": {
+    "repository": "ppapapetrou76/oss-chronicle",
+    "ref": "main"
+  }
 }
