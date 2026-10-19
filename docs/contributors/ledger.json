@@ -1,9 +1,9 @@
 {
   "repository": "ppapapetrou76/go-data-gov-gr-sdk",
   "default_branch": "main",
-  "from": "2026-07-15",
-  "to": "2026-10-12",
-  "pull_requests": 4,
+  "from": "2026-07-22",
+  "to": "2026-10-19",
+  "pull_requests": 7,
   "totals": {
     "landed": 1,
     "reviewed": 0,
@@ -11,7 +11,7 @@
     "commented": 0,
     "merged": 1,
     "triaged": 0,
-    "maintenance": 3,
+    "maintenance": 5,
     "authoring_weight": 2,
     "reviewing_weight": 0
   },
@@ -56,7 +56,7 @@
       "commented": 0,
       "merged": 1,
       "triaged": 0,
-      "maintenance": 3,
+      "maintenance": 5,
       "total": 2,
       "authoring_weight": 2,
       "reviewing_weight": 0
@@ -91,13 +91,13 @@
     {
       "reason": "closed_by_merge",
       "label": "\"Closed\" event fired by every merge",
-      "count": 3,
+      "count": 5,
       "maintenance": false
     },
     {
       "reason": "maintenance_merges",
       "label": "Merges of backport, dependency or bot PRs",
-      "count": 2,
+      "count": 4,
       "maintenance": true
     },
     {
